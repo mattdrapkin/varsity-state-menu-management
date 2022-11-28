@@ -42,6 +42,16 @@ const menuItems = [
 ]
 
 function Menu() {
+  const [purchasedItems, setPurchasedItems] = React.useState([]);
+
+  const addPurchasedItem = (newItem) => {
+    setPurchasedItems([...purchasedItems, newItem]);
+  }
+
+  const removePurchasedItem = (name) => {
+    setPurchasedItems(purchasedItems.filter(item => name !== item.name))
+  };
+
   return (
     <section>
       <dl>
@@ -51,11 +61,13 @@ function Menu() {
               name={menuItem.name}
               price={menuItem.price}
               picture={menuItem.picture}
+              addPurchasedItem={addPurchasedItem}
+              removePurchasedItem={removePurchasedItem}
             />
           )
         })}
       </dl>
-      <Receipt purchasedItems={[]} />
+      <Receipt purchasedItems={purchasedItems} />
     </section>
   )
 }
